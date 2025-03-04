@@ -1,7 +1,4 @@
-import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Observable, of, timer } from 'rxjs';
-import { catchError, switchMap, map } from 'rxjs/operators';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 import {isURL} from 'validator';
 
 /**
