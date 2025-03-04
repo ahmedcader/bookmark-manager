@@ -1,0 +1,51 @@
+<div class="container">
+  <h1>Bookmark Manager</h1>
+  <!-- Bookmark submission form -->
+  <form [formGroup]="bookmarkForm" (ngSubmit)="onSubmit()">
+    <input type="text" formControlName="url" placeholder="Enter URL" class="url-input" />
+    <button type="submit" [disabled]="bookmarkForm.invalid">Submit</button>
+    <!-- Display validation errors -->
+    <div class="error" *ngIf="bookmarkForm.controls['url'].errors">
+      <span *ngIf="bookmarkForm.controls['url'].errors?.['required']">
+        URL is required.
+      </span>
+      <span *ngIf="bookmarkForm.controls['url'].errors?.['invalidUrl']">
+        Invalid URL format.
+      </span>
+      <span *ngIf="bookmarkForm.controls['url'].errors?.['urlNotExist']">
+        URL does not exist.
+      </span>
+      <span *ngIf="bookmarkForm.controls['url'].errors?.['duplicateUrl']">
+        This URL already exists.
+      </span>
+    </div>
+  </form>
+
+  <hr />
+
+  <!-- List of bookmarks with edit and delete options -->
+  <h2>Bookmarks</h2>
+  <div *ngIf="paginatedBookmarks.length === 0" class="empty-msg">
+    No bookmarks available.
+  </div>
+  <ul>
+    <li *ngFor="let bookmark of paginatedBookmarks">
+      <a [href]="bookmark.url" target="_blank" rel="noopener noreferrer">
+        {{ bookmark.url }}
+      </a>
+      <div class="btn-group">
+        <button (click)="onEdit(bookmark)">Edit</button>
+        <button class="btn-delete" (click)="onDelete(bookmark.id)">Delete</button>
+      </div>
+    </li>
+  </ul>
+
+  <!-- Pagination controls -->
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">&lt;</button>
+    <button *ngFor="let page of pagesArray" (click)="goToPage(page)" [disabled]="currentPage === page">
+      {{ page }}
+    </button>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">&gt;</button>
+  </div>
+</div>
