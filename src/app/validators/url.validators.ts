@@ -2,7 +2,7 @@ import { AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/fo
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, timer } from 'rxjs';
 import { catchError, switchMap, map } from 'rxjs/operators';
-import isURL from 'validator/lib/isURL';
+import {isURL} from 'validator';
 
 /**
  * Synchronous validator to check if the URL is valid using validator.js's isURL method.
